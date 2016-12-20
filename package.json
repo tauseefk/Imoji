@@ -1,0 +1,36 @@
+{
+  "name": "nlp-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^3.5.0",
+    "express": "^4.14.0",
+    "natural": "^0.4.0",
+    "ramda": "^0.22.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tauseefk/nlp-test.git"
+  },
+  "keywords": [
+    "nlp",
+    "stemming"
+  ],
+  "author": "tauseefk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tauseefk/nlp-test/issues"
+  },
+  "homepage": "https://github.com/tauseefk/nlp-test#readme"
+}
