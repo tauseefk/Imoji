@@ -1,11 +1,11 @@
 'use strict';
 const express = require('express'),
   app = express(),
-  filteredStems = require('./app/filteredStems'),
+  filteredStems = require('./lib/filteredStems'),
   myString = "I'm surprised! I didn't know you could make it.";
 
 app.set('port', (process.env.PORT || 5000));
-app.use('/app/', express.static(__dirname + '/app/'));
+app.use('/lib/', express.static(__dirname + '/app/'));
 
 app.get('/', function(req, res) {
   res.send(filteredStems(req.query = myString));
