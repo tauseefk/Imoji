@@ -20,12 +20,11 @@
     "webpack": "^1.14.0"
   },
   "scripts": {
-    "test": "mocha",
-    "start": "node index.js"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tauseefk/nlp-test.git"
+    "url": "git+https://github.com/tauseefk/imoji.git"
   },
   "keywords": [
     "nlp",
@@ -34,7 +33,7 @@
   "author": "tauseefk",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tauseefk/nlp-test/issues"
+    "url": "https://github.com/tauseefk/imoji/issues"
   },
-  "homepage": "https://github.com/tauseefk/nlp-test#readme"
+  "homepage": "https://github.com/tauseefk/imoji#readme"
 }
