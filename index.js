@@ -1,18 +1,27 @@
 'use strict';
-var flickr = require('./lib/flickr');
-var fStems = require('./lib/filteredStems');
-var _ = require('ramda');
-const defString = "Quick brown fox jumped over a lazy dog";
-var appContainer = document.querySelector('.app');
-var head = function(arr) {
-  return arr[0];
-}
-var convertStemToImage = _.compose(_.map(flickr), fStems);
-convertStemToImage(defString);
 
-document.querySelector(".input").addEventListener('change', function(e){
-  while(appContainer.lastChild) {
-    appContainer.removeChild(appContainer.lastChild);
-  }
-  convertStemToImage(e.target.value.trim());
-})
+const dotEnv = require('dotenv');
+dotEnv.config({ path: __dirname + '/.env'});
+const express = require('express'),
+  app = express(),
+  Routes = require('./routes.js'),
+  cors = require('cors'),
+  bodyParser = require('body-parser');
+
+app.set('port', (process.env.NODE_PORT || 3000));
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use('/', express.static(__dirname));
+
+// var appContainer = document.querySelector('.app');
+
+app.get('/', Routes.home);
+app.get('/authorizeUser', Routes.authorizeUser);
+app.get('/auth', Routes.handleAuth);
+app.get('/getPopular', Routes.getPopular);
+app.get('/getTag', Routes.getTag);
+
+app.listen(app.get('port'), function() {
+  console.log(`Node app is running on port: ${app.get('port')}`);
+});

@@ -1,0 +1,155 @@
+body {
+  margin: 0;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.bg-dark {
+  background: #000;
+}
+
+.float-l {
+  float: left;
+}
+
+.display-block {
+  display: block;
+}
+
+.margin-vertical-small {
+  margin-top: 20px;
+}
+
+.clear {
+  clear: both;
+}
+
+.color-invert {
+  color: #fff;
+}
+
+.form-user-info {
+  width: 300px;
+  padding: 20px;
+}
+
+.bg-page-mockingbirds {
+  background: #003c67;
+}
+
+.outline-mockingbirds {
+  outline-color: #c6dfe6;
+}
+
+.bg-mockingbirds {
+  background-color: #77a0ac;
+}
+
+.color-light {
+  color: #fff;
+}
+
+.color-light:hover, .color-light:active, .color-light:focus {
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #56b0ae;
+  outline: none;
+  border: 1px solid #c6dfe6;
+}
+
+.btn-primary:active, .btn-primary:focus, .btn-primary:hover,  .btn-primary:hover:active,  .btn-primary:visited {
+  background-color: #70d4d2;
+  outline: none;
+  border: 1px solid #c6dfe6;
+}
+
+.btn-pill {
+  border-radius: 24px;
+}
+
+.opacity-08 {
+  opacity: 0.8;
+}
+
+.opacity-08:hover, .opacity-08:active {
+  opacity: 1;
+}
+
+button.close {
+  position: absolute;
+  right: 10px;
+  /*top: 10px;*/
+}
+
+.chart-user-analysis {
+  margin-bottom: 20px;
+}
+
+.banner-orientation {
+  display: none;
+  min-height: 500px;
+  min-width: 500px;
+  position: absolute;
+  top: 0px;
+}
+
+.full-size {
+  width: 100%;
+  height: 100%;
+}
+
+.orientation-landscape {
+  visibility: visible;
+}
+
+@media screen and (orientation:portrait) and (max-width: 767px) {
+  .banner-orientation {
+    display: block;
+  }
+
+  .orientation-landscape {
+    visibility: hidden;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .modal-dialog {
+    height: 100%;
+    margin: 0px;
+  }
+
+  .modal-content {
+    height: 100%;
+  }
+
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+}
+
+@media (max-width: 479px) {
+  .modal-dialog {
+    height: 100%;
+    margin: 0px;
+  }
+
+  .modal-content {
+    height: 100%;
+  }
+
+  .modal-content > .center {
+    margin: 0px;
+  }
+
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+}
