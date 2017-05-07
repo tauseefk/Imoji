@@ -54,37 +54,9 @@ exports.handleAuth = function(req, res) {
   });
 };
 
-exports.getPopular = function(req, res){
-	api.media_popular(function(err, medias, limit){
-		if(err){
-			console.log(err);
-			res.send("Could not fetch feed");
-		} else {
-			console.log('Feed fetched');
-			res.send({
-			  head: {
-				  title: 'Picture'
-			  },
-			  homepage: {
-				  title: 'Most Popular',
-				  image: medias[0].images.thumbnail.url,
-				  likes: medias[0].likes.count,
-				  tags: medias[0].tags,
-				  caption: medias[0].caption,
-				  description: JSON.stringify(medias)
-				}
-			});
-		}
-	});
-};
-
 exports.getTag = function(req, res){
-  axios.get(`https://api.instagram.com/v1/tags/pokemon/media/recent?access_token=${tokenManager.getAccessToken()}`)
-  .then(function(res) {
-    console.log(res.data);
-  })
-  .catch(console.log.bind(this))
   var convertStemToImage = _.compose(_.map(pictures), fStems);
-  convertStemToImage(defString);
-  res.send("blah!");
+  Promise.all(convertStemToImage(defString))
+  .then(images => res.send(images))
+  .catch(err => res.send(err));
 };
