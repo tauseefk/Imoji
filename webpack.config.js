@@ -1,33 +1,33 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './index.js',
-  output: {
-    filename: 'bundle.js',
-    path: __dirname + '/dist'
+  entry: {
+    client: './app/js/components/Main.jsx',
   },
-  node : {
-    fs: "empty",
-    cluster: "empty",
-    "hipchat-notifier": "empty",
-    dgram: "empty",
-    loggly: "empty",
-    "mailgun-js": "empty",
-    "slack-node": "empty",
-    nodemailer: "empty",
-    net: "empty",
-    child_process: "empty"
+  output: {
+    path: __dirname + '/dist',
+    filename: '[name]-bundle.js'
   },
   module: {
-  loaders: [
-    {
-      test: /\.js$/,
-      exclude: /(node_modules|bower_components)/,
-      loader: 'babel-loader',
-      query: {
-        presets: ['es2015']
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        loader: 'babel-loader',
+        exclude: /(node_modules|bower_components)/,
+        options: {
+          presets: [
+            [
+              "env",
+              {
+                "targets": {
+                  "browsers": ["last 2 versions"]
+                }
+              }
+            ],
+            "react"
+          ]
+        }
       }
-    }
-  ]
-}
+    ]
+  }
 }

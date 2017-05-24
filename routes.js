@@ -1,43 +1,69 @@
 'use strict';
 
-const pictures = require('./app/js/pictures'),
-  _ = require('ramda'),
-  api = require('./app/js/instagram-node-helper'),
-  fStems = require('./app/js/filteredStems'),
-  axios = require('axios'),
-  defString = "Quick brown fox jumped over a lazy dog",
-  redirectURI = 'http://localhost:3000/auth',
-  tokenManager = require('./app/js/tokenManager');
+const React = require('react'),
+compose = require('ramda').compose,
+map = require('ramda').map,
+curry = require('ramda').curry,
+api = require('./app/js/instagram-node-helper'),
+pictures = require('./app/js/pictures'),
+fStems = require('./app/js/filteredStems'),
+axios = require('axios'),
+defString = 'people from california and florida',
+redirectURI = 'http://localhost:3000/auth',
+tokenManager = require('./app/js/tokenManager');
+
+const trace = curry((tag, x) => {
+  console.log(tag, x);
+  return x;
+});
 
 exports.home = function(req, res) {
   if(tokenManager.getAccessToken() === null) {
     res.redirect('/authorizeUser');
     return;
+  } else {
+    homeWithToken(req, res);
   }
+}
 
-  let html =
-    '<!DOCTYPE html>'
-       +'<html>'
-         +'<head>'
-          +'<title>Imoji</title>'
-          +'<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0">'
-          +'<meta charset="UTF-8">'
-          +'<link rel="stylesheet" type="text/css" href="/app/css/main.css">'
-         +'</head>'
-         +'<body>'
-           +'<div>'
-             +'<article>'
-               +'<div id="app" class="layoutSingleColumn u-margin-header">'
-               +'</div>'
-             +'</article>'
-           +'</div>'
-         +'</body>'
-       +'</html>';
+function homeWithToken(req, res) {
+  const html =
+  '<!DOCTYPE html>'
+  +'<html>'
+  +'<head>'
+  +'<title>Imoji</title>'
+  +'<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0">'
+  +'<meta charset="UTF-8">'
+  +'<link rel="stylesheet" type="text/css" href="/app/styles/bootstrap.min.css">'
+  +'<link rel="stylesheet" type="text/css" href="/app/styles/cleaner.css">'
+  +'</head>'
+  +'<body>'
+  +'<div id="app">'
+  +'</div>'
+  +'<script src="./dist/client-bundle.js"></script>'
+  +'</body>'
+  +'</html>';
   res.send(html);
 }
 
+exports.getImagesForTags = (req, res) => {
+  const convertStemToImage = compose(map(pictures), fStems);
+  Promise.all(convertStemToImage(req.body.queryString))
+  .then(images => images.filter((image) => image != null))
+  .then(images => {
+    res.send({
+      name: 'Tauseef',
+      images: images,
+      avatar: 'https://scontent.cdninstagram.com/t51.2885-19/s320x320/13584112_124281471336305_935791724_a.jpg'
+    });
+  })
+  .catch(err => res.send(err));
+}
+
 exports.authorizeUser = function(req, res) {
-  res.redirect(api.get_authorization_url(redirectURI, { scope: ['public_content']}));
+  res.redirect(api.get_authorization_url(redirectURI,
+    { scope: ['public_content']}
+  ));
 };
 
 exports.handleAuth = function(req, res) {
@@ -49,14 +75,7 @@ exports.handleAuth = function(req, res) {
       api.use({
         access_token: result.access_token
       })
-      res.redirect('/getTag');
+      res.redirect('/');
     }
   });
-};
-
-exports.getTag = function(req, res){
-  var convertStemToImage = _.compose(_.map(pictures), fStems);
-  Promise.all(convertStemToImage(defString))
-  .then(images => res.send(images))
-  .catch(err => res.send(err));
 };

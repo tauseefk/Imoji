@@ -1,4 +1,5 @@
 'use strict';
+
 const natural = require('natural'),
   wordTokenizer = new natural.WordTokenizer(),
   stemmer = natural.PorterStemmer,
@@ -6,14 +7,8 @@ const natural = require('natural'),
 
 const map = require('ramda').map,
   curry = require('ramda').curry,
-  filter = require('ramda').filter;
-
-
-const compose = function(f, g) {
-  return function(x) {
-    return f(g(x));
-  }
-}
+  filter = require('ramda').filter,
+  compose = require('ramda').compose;
 
 const c_tokenize = function(tkr) {
   return function(str) {
