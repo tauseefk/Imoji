@@ -11251,7 +11251,7 @@ var NavigationBar = function (_React$Component) {
           ),
           _react2.default.createElement(
             'div',
-            { className: 'collapse navbar-collapse' },
+            { className: 'navbar' },
             _react2.default.createElement(Search, { onEdit: this.props.onImageRequest })
           )
         )
