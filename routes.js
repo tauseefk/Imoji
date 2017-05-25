@@ -9,7 +9,7 @@ pictures = require('./app/js/pictures'),
 fStems = require('./app/js/filteredStems'),
 axios = require('axios'),
 defString = 'people from california and florida',
-redirectURI = process.env.APP_ADDRESS + process.env.PORT + REDIRECT_URI,
+redirectURI = process.env.APP_ADDRESS + process.env.PORT + process.env.REDIRECT_URI,
 tokenManager = require('./app/js/tokenManager');
 
 const trace = curry((tag, x) => {
