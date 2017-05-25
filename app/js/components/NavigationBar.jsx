@@ -77,7 +77,7 @@ class Search extends React.Component {
           />
         </div>
         <button type='button' className='u-outlineNone u-borderNone btn btn-primary background-accent font-N7 text-uppercase'>
-          <i class="glyphicon glyphicon-search"></i>
+          <i className="glyphicon glyphicon-search"></i>
         </button>
       </form>
     )
