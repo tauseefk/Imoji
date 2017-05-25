@@ -25,7 +25,7 @@ export default class NavigationBar extends React.Component {
               <span className='user-type'></span>
             </div>
           </div>
-          <div className='navbar'>
+          <div className='navbar override-minHeight'>
             <Search onEdit={this.props.onImageRequest} />
           </div>
         </div>

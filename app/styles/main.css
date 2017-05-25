@@ -224,6 +224,10 @@ body {
   margin-bottom: 0px;
 }
 
+.override-minHeight {
+  min-height: auto;
+}
+
 .navbar-form {
   padding: auto;
   margin-top: 0px;
