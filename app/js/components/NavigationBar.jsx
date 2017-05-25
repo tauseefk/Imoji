@@ -25,7 +25,7 @@ export default class NavigationBar extends React.Component {
               <span className='user-type'></span>
             </div>
           </div>
-          <div className='collapse navbar-collapse'>
+          <div className='navbar'>
             <Search onEdit={this.props.onImageRequest} />
           </div>
         </div>

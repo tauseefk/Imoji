@@ -244,10 +244,14 @@ body {
     .postContent--h2 {
         font-size: 22px;
     }
+
+    .user-details {
+      display: none;
+    }
 }
 
 @media (max-width: 689px) {
-  .navbar>navbar-form button {
+  .navbar-form>button {
     display: none;
   }
 
