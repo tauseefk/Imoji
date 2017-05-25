@@ -81,9 +81,6 @@ exports.handleAuth = function(req, res) {
     } else {
       tokenManager.setAccessToken(result.access_token);
       tokenManager.setUserData(result.user.username, result.user.profile_picture);
-      api.use({
-        access_token: result.access_token
-      })
       res.redirect('/');
     }
   });
