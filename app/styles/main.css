@@ -47,6 +47,10 @@ body {
     font-family: "Lora","Helvetica Neue",sans-serif;
 }
 
+.color-dark {
+  color: rgb(46, 169, 95);
+}
+
 .layoutSingleColumn {
     margin: 0px auto;
     width: 700px;

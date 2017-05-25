@@ -11323,7 +11323,7 @@ var Search = function (_React$Component2) {
             className: 'form-control',
             placeholder: 'Search...'
           }),
-          _react2.default.createElement('i', { className: 'glyphicon glyphicon-search form-control-feedback' })
+          _react2.default.createElement('i', { className: 'color-dark glyphicon glyphicon-search form-control-feedback' })
         ),
         _react2.default.createElement(
           'button',
