@@ -11313,7 +11313,7 @@ var Search = function (_React$Component2) {
         { className: 'navbar-form navbar-right' },
         _react2.default.createElement(
           'div',
-          { className: 'form-group' },
+          { className: 'form-group has-feedback' },
           _react2.default.createElement('input', {
             type: 'text',
             onKeyPress: this.checkEnter,
@@ -11322,7 +11322,8 @@ var Search = function (_React$Component2) {
             onBlur: this.finishEdit,
             className: 'form-control',
             placeholder: 'Search...'
-          })
+          }),
+          _react2.default.createElement('i', { 'class': 'glyphicon glyphicon-search form-control-feedback' })
         ),
         _react2.default.createElement(
           'button',

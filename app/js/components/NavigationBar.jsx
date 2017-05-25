@@ -65,7 +65,7 @@ class Search extends React.Component {
 
     return (
       <form className="navbar-form navbar-right">
-        <div className="form-group">
+        <div className="form-group has-feedback">
           <input
             type='text'
             onKeyPress={this.checkEnter}
@@ -75,6 +75,7 @@ class Search extends React.Component {
             className='form-control'
             placeholder='Search...'
           />
+        <i class="glyphicon glyphicon-search form-control-feedback"></i>
         </div>
         <button type='button' className='u-outlineNone u-borderNone btn btn-primary background-accent font-N7 text-uppercase'>Search</button>
       </form>
