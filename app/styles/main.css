@@ -231,8 +231,8 @@ body {
 }
 
 .navbar-form>button {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 10px;
+    padding-bottom: 8px;
 }
 
 .navbar-right>*:not(:last-child) {
