@@ -43,7 +43,7 @@ function homeWithToken(req, res) {
   +'<meta property="og:description" content="An application to turn text messages to picture messages." />'
   +'<meta property="og:image" content="https://imoji.herokuapp.com/app/assets/images/icon_placeholder.jpg" />'
   +'<link rel="stylesheet" type="text/css" href="/app/styles/bootstrap.min.css">'
-  +'<link rel="stylesheet" type="text/css" href="/app/styles/cleaner.css">'
+  +'<link rel="stylesheet" type="text/css" href="/app/styles/main.css">'
   +'</head>'
   +'<body>'
   +'<div id="app">'
