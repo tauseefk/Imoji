@@ -41,7 +41,7 @@ function homeWithToken(req, res) {
   +'<meta property="og:url" content="https://imoji.herokuapp.com" />'
   +'<meta property="og:title" content="Imoji" />'
   +'<meta property="og:description" content="An application to turn text messages to picture messages." />'
-  +'<meta property="og:image" content="/app/assets/images/icon_placeholder.jpg" />'
+  +'<meta property="og:image" content="https://imoji.herokuapp.com/app/assets/images/icon_placeholder.jpg" />'
   +'<link rel="stylesheet" type="text/css" href="/app/styles/bootstrap.min.css">'
   +'<link rel="stylesheet" type="text/css" href="/app/styles/cleaner.css">'
   +'</head>'
