@@ -42,7 +42,7 @@ function homeWithToken(req, res) {
   +'<meta property="og:title" content="Imoji" />'
   +'<meta property="og:description" content="An application to turn text messages to picture messages." />'
   +'<meta property="og:image" content="https://imoji.herokuapp.com/app/assets/images/icon_placeholder.jpg" />'
-  +'<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">'
+  +'<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">'
   +'<link rel="stylesheet" type="text/css" href="/app/styles/main.css">'
   +'</head>'
   +'<body>'
