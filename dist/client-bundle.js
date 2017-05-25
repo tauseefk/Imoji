@@ -11322,13 +11322,12 @@ var Search = function (_React$Component2) {
             onBlur: this.finishEdit,
             className: 'form-control',
             placeholder: 'Search...'
-          }),
-          _react2.default.createElement('i', { className: 'color-dark glyphicon glyphicon-search form-control-feedback' })
+          })
         ),
         _react2.default.createElement(
           'button',
           { type: 'button', className: 'u-outlineNone u-borderNone btn btn-primary background-accent font-N7 text-uppercase' },
-          'Search'
+          _react2.default.createElement('i', { 'class': 'glyphicon glyphicon-search' })
         )
       );
     }

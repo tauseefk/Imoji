@@ -75,9 +75,10 @@ class Search extends React.Component {
             className='form-control'
             placeholder='Search...'
           />
-        <i className="color-dark glyphicon glyphicon-search form-control-feedback"></i>
         </div>
-        <button type='button' className='u-outlineNone u-borderNone btn btn-primary background-accent font-N7 text-uppercase'>Search</button>
+        <button type='button' className='u-outlineNone u-borderNone btn btn-primary background-accent font-N7 text-uppercase'>
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
       </form>
     )
   }
