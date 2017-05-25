@@ -10277,7 +10277,7 @@ var Homepage = function (_React$Component) {
     value: function fetchImages(query) {
       var _this2 = this;
 
-      _axios2.default.post('http://localhost:3000/getImagesForTags', query).then(function (res) {
+      _axios2.default.post('https://imoji.herokuapp.com/getImagesForTags', query).then(function (res) {
         _this2.setState({
           name: res.data.name,
           avatar: res.data.avatar,

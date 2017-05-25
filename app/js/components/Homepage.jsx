@@ -32,7 +32,7 @@ export default class Homepage extends React.Component {
   }
 
   fetchImages(query) {
-    Axios.post('http://localhost:3000/getImagesForTags', query)
+    Axios.post('https://imoji.herokuapp.com/getImagesForTags', query)
     .then((res) => {
       this.setState({
         name: res.data.name,
