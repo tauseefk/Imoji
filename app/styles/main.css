@@ -154,6 +154,7 @@ body {
 .background-accent:active {
     background-color: rgba(43,222,115,1) !important;
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(43,222,115,.5);
+    outline: none;
 }
 
 .background-accent:hover {
