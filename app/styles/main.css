@@ -101,6 +101,14 @@ body {
     border: none !important;
 }
 
+.u-outlineNone {
+  outline: none !important;
+}
+
+.u-outlineNone:active:focus {
+  outline: none !important;
+}
+
 .font--default {
     font-family: "Lora","Helvetica Neue",sans-serif;
 }
@@ -146,7 +154,6 @@ body {
 .background-accent:active {
     background-color: rgba(43,222,115,1) !important;
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(43,222,115,.5);
-    outline: none;
 }
 
 .background-accent:hover {

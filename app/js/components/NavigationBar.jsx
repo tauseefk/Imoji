@@ -76,7 +76,7 @@ class Search extends React.Component {
             placeholder='Search...'
           />
         </div>
-        <button type='button' className='u-borderNone btn btn-primary background-accent font-N7 text-uppercase'>Search</button>
+        <button type='button' className='u-outlineNone u-borderNone btn btn-primary background-accent font-N7 text-uppercase'>Search</button>
       </form>
     )
   }

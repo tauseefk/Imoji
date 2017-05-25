@@ -11326,7 +11326,7 @@ var Search = function (_React$Component2) {
         ),
         _react2.default.createElement(
           'button',
-          { type: 'button', className: 'u-borderNone btn btn-primary background-accent font-N7 text-uppercase' },
+          { type: 'button', className: 'u-outlineNone u-borderNone btn btn-primary background-accent font-N7 text-uppercase' },
           'Search'
         )
       );
