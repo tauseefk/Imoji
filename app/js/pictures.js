@@ -30,9 +30,8 @@ const img = (url) => `<img src="${url}" />`,
     return x;
   }),
   head = (x) => x[0],
-  url = (t) => `https://api.instagram.com/v1/tags/${t}/media/recent?access_token=${tokenManager.getAccessToken()}`,
   mediaUrl = compose(prop('url'), prop('standard_resolution'), prop('images')),
   mediaToImage = compose(img, mediaUrl),
   images = compose(mediaUrl, head);
 
-module.exports = compose(Impure.get(images), url);
+module.exports = Impure.get(images);

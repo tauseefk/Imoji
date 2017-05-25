@@ -13,9 +13,10 @@ redirectURI = process.env.APP_ADDRESS + process.env.REDIRECT_URI,
 tokenManager = require('./app/js/tokenManager');
 
 const trace = curry((tag, x) => {
-  console.log(tag, x);
-  return x;
-});
+    console.log(tag, x);
+    return x;
+  }),
+  tags = curry((access_token, t) => `https://api.instagram.com/v1/tags/${t}/media/recent?access_token=${access_token}`);
 
 exports.home = function(req, res) {
   if(tokenManager.getAccessToken() === null) {
@@ -55,8 +56,11 @@ function homeWithToken(req, res) {
 }
 
 exports.getImagesForTags = (req, res) => {
-  const convertStemToImage = compose(map(pictures), fStems);
-  Promise.all(convertStemToImage(req.body.queryString))
+  const tagsWithToken = tags(tokenManager.getAccessToken()),
+    picturesForTags = compose(pictures, tagsWithToken),
+    convertStemsToImages = compose(map(picturesForTags), fStems);
+
+  Promise.all(convertStemsToImages(req.body.queryString))
   .then(images => images.filter((image) => image != null))
   .then(images => {
     res.send({
