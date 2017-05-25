@@ -1,5 +1,6 @@
 var accessToken = null,
-  userName = "";
+  userName = "",
+  userAvatar = "";
 
 module.exports = {
   getAccessToken: function() {
@@ -10,8 +11,12 @@ module.exports = {
   },
   getUserName: function() {
     return userName;
-  }
-  setUserName: function(userName) {
+  },
+  getUserAvatar: function() {
+    return userAvatar;
+  },
+  setUserData: function(name, avatar) {
     userName = name;
+    userAvatar = avatar;
   }
 }
