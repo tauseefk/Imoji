@@ -9,8 +9,7 @@ pictures = require('./app/js/pictures'),
 fStems = require('./app/js/filteredStems'),
 axios = require('axios'),
 defString = 'people from california and florida',
-redirectURI = process.env.APP_ADDRESS + process.env.REDIRECT_URI,
-tokenManager = require('./app/js/tokenManager');
+redirectURI = process.env.APP_ADDRESS + process.env.REDIRECT_URI;
 
 const trace = curry((tag, x) => {
     console.log(tag, x);
@@ -19,7 +18,10 @@ const trace = curry((tag, x) => {
   tags = curry((access_token, t) => `https://api.instagram.com/v1/tags/${t}/media/recent?access_token=${access_token}`);
 
 exports.home = function(req, res) {
-  if(tokenManager.getAccessToken() === null) {
+  if(!req.userAuth ||
+    req.userAuth.access_token === null ||
+    req.userAuth.access_token === undefined) {
+
     res.redirect('/authorizeUser');
     return;
   } else {
@@ -56,7 +58,7 @@ function homeWithToken(req, res) {
 }
 
 exports.getImagesForTags = (req, res) => {
-  const tagsWithToken = tags(tokenManager.getAccessToken()),
+  const tagsWithToken = tags(req.userAuth.access_token),
     picturesForTags = compose(pictures, tagsWithToken),
     convertStemsToImages = compose(map(picturesForTags), fStems);
 
@@ -64,9 +66,9 @@ exports.getImagesForTags = (req, res) => {
   .then(images => images.filter((image) => image != null))
   .then(images => {
     res.send({
-      name: tokenManager.getUserName(),
+      name: req.userAuth.user_name,
       images: images || [],
-      avatar: tokenManager.getUserAvatar()
+      avatar: req.userAuth.profile_picture
     });
   })
   .catch(err => res.send(err));
@@ -83,8 +85,9 @@ exports.handleAuth = function(req, res) {
     if (err) {
       console.error(err);
     } else {
-      tokenManager.setAccessToken(result.access_token);
-      tokenManager.setUserData(result.user.username, result.user.profile_picture);
+      req.userAuth.access_token = result.access_token;
+      req.userAuth.user_name = result.user.username;
+      req.userAuth.profile_picture = result.user.profile_picture;
       res.redirect('/');
     }
   });

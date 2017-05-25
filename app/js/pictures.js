@@ -1,7 +1,6 @@
 'use strict';
 
 const axios = require('axios'),
-  tokenManager = require('./tokenManager'),
   map = require('ramda').map,
   curry = require('ramda').curry,
   compose = require('ramda').compose,
