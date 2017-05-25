@@ -37,7 +37,7 @@ function homeWithToken(req, res) {
   +'<meta name="description" content="An application to turn text messages to picture messages.">'
   +'<meta name="keywords" content="pictures, instagram, feed, nlp">'
   +'<meta property="fb:app_id" content="1046151882152788" />'
-  +'<meta property="og:type" content="article" />'
+  +'<meta property="og:type" content="article" content="app" />'
   +'<meta property="og:url" content="https://imoji.herokuapp.com" />'
   +'<meta property="og:title" content="Imoji" />'
   +'<meta property="og:description" content="An application to turn text messages to picture messages." />'
