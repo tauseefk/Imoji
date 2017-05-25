@@ -248,6 +248,10 @@ body {
     .user-details {
       display: none;
     }
+
+    .navbar-form>button {
+      display: none;
+    }
 }
 
 @media (max-width: 689px) {
