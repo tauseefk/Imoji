@@ -60,7 +60,7 @@ exports.getImagesForTags = (req, res) => {
   .then(images => images.filter((image) => image != null))
   .then(images => {
     res.send({
-      name: 'Tauseef',
+      name: userName,
       images: images,
       avatar: 'https://scontent.cdninstagram.com/t51.2885-19/s320x320/13584112_124281471336305_935791724_a.jpg'
     });
@@ -80,6 +80,7 @@ exports.handleAuth = function(req, res) {
       console.error(err);
     } else {
       tokenManager.setAccessToken(result.access_token);
+      tokenManager.setUserName(result.user.username);
       api.use({
         access_token: result.access_token
       })

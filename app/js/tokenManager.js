@@ -1,4 +1,5 @@
-let accessToken = null;
+var accessToken = null,
+  userName = "";
 
 module.exports = {
   getAccessToken: function() {
@@ -6,5 +7,11 @@ module.exports = {
   },
   setAccessToken: function(token) {
     accessToken = token;
+  },
+  getUserName: function() {
+    return userName;
+  }
+  setUserName: function(userName) {
+    userName = name;
   }
 }
