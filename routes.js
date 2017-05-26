@@ -18,7 +18,7 @@ const trace = curry((tag, x) => {
   }),
   tags = curry((access_token, t) => `https://api.instagram.com/v1/tags/${t}/media/recent?access_token=${access_token}`);
 
-exports.home = function(req, res) {
+exports.home = (req, res) => {
   if(!req.userAuth ||
     req.userAuth.access_token === null ||
     req.userAuth.access_token === undefined) {
@@ -33,9 +33,9 @@ exports.home = function(req, res) {
   }
 }
 
-function homeWithToken(req, res) {
+var homeWithToken = (req, res) => {
   fs.createReadStream('./app.html')
-  .pipe(res);
+    .pipe(res);
 }
 
 exports.getImagesForTags = (req, res) => {
@@ -53,15 +53,15 @@ exports.getImagesForTags = (req, res) => {
     });
   })
   .catch(err => res.send(err));
-}
+};
 
-exports.authorizeUser = function(req, res) {
+exports.authorizeUser = (req, res) => {
   res.redirect(api.get_authorization_url(redirectURI,
     { scope: ['public_content']}
   ));
 };
 
-exports.handleAuth = function(req, res) {
+exports.handleAuth = (req, res) => {
   api.authorize_user(req.query.code, redirectURI, function(err, result) {
     if (err) {
       console.error(err);
@@ -72,4 +72,9 @@ exports.handleAuth = function(req, res) {
       res.redirect('/');
     }
   });
+};
+
+exports.getStaticPage = (req, res) => {
+  fs.createReadStream('app.html')
+  .pipe(res);
 };

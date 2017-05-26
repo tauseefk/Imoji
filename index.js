@@ -36,6 +36,7 @@ app.get('/authorizeUser', Routes.authorizeUser);
 app.get('/auth', Routes.handleAuth);
 // app.get('/getTag', Routes.getTag);
 app.post('/getImagesForTags', Routes.getImagesForTags);
+app.get('/static', Routes.getStaticPage);
 
 app.listen(app.get('port'), function() {
   console.log(`Node app is running on port: ${app.get('port')}`);
