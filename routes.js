@@ -25,6 +25,7 @@ exports.home = (req, res) => {
 
     if(req.headers['user-agent'] == 'facebookexternalhit/' ||
       req.headers['user-agent'] == 'Facebot') {
+        console.log(req.headers['user-agent']);
       res.redirect('/static');
     } else {
       console.log(req.headers['user-agent']);
