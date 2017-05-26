@@ -23,9 +23,10 @@ exports.home = (req, res) => {
     req.userAuth.access_token === null ||
     req.userAuth.access_token === undefined) {
 
-    fs.createReadStream('./app.html')
-      .pipe(res);
-
+    if(req.headers['user-agent'] &&
+    req.headers['user-agent'] === 'facebookexternalhit/1.1') {
+      res.redirect('/static');
+    }
     res.redirect('/authorizeUser');
     return;
   } else {

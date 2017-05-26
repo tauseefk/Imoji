@@ -29,12 +29,9 @@ app.use(sessions({
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname));
 
-// var appContainer = document.querySelector('.app');
-
 app.get('/', Routes.home);
 app.get('/authorizeUser', Routes.authorizeUser);
 app.get('/auth', Routes.handleAuth);
-// app.get('/getTag', Routes.getTag);
 app.post('/getImagesForTags', Routes.getImagesForTags);
 app.get('/static', Routes.getStaticPage);
 
