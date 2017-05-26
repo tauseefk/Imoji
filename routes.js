@@ -23,11 +23,11 @@ exports.home = (req, res) => {
     req.userAuth.access_token === null ||
     req.userAuth.access_token === undefined) {
 
-    if(req.headers['user-agent'] && (
-    req.headers['user-agent'] == 'facebookexternalhit/1.1' ||
-    req.headers['user-agent'] == 'Facebot')) {
+    if(req.headers['user-agent'] == 'facebookexternalhit/' ||
+      req.headers['user-agent'] == 'Facebot') {
       res.redirect('/static');
     } else {
+      console.log(req.headers['user-agent']);
       res.redirect('/authorizeUser');
     }
     return;
