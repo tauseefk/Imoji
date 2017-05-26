@@ -1,15 +1,16 @@
 'use strict';
 
 const React = require('react'),
-compose = require('ramda').compose,
-map = require('ramda').map,
-curry = require('ramda').curry,
-api = require('./app/js/instagram-node-helper'),
-pictures = require('./app/js/pictures'),
-fStems = require('./app/js/filteredStems'),
-axios = require('axios'),
-defString = 'people from california and florida',
-redirectURI = process.env.APP_ADDRESS + process.env.REDIRECT_URI;
+  fs = require('fs'),
+  compose = require('ramda').compose,
+  map = require('ramda').map,
+  curry = require('ramda').curry,
+  api = require('./app/js/instagram-node-helper'),
+  pictures = require('./app/js/pictures'),
+  fStems = require('./app/js/filteredStems'),
+  axios = require('axios'),
+  defString = 'people from california and florida',
+  redirectURI = process.env.APP_ADDRESS + process.env.REDIRECT_URI;
 
 const trace = curry((tag, x) => {
     console.log(tag, x);
@@ -22,6 +23,9 @@ exports.home = function(req, res) {
     req.userAuth.access_token === null ||
     req.userAuth.access_token === undefined) {
 
+    fs.createReadStream('./app.html')
+      .pipe(res);
+
     res.redirect('/authorizeUser');
     return;
   } else {
@@ -30,31 +34,8 @@ exports.home = function(req, res) {
 }
 
 function homeWithToken(req, res) {
-  const html =
-  '<!DOCTYPE html>'
-  +'<html>'
-  +'<head>'
-  +'<title>Imoji</title>'
-  +'<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0">'
-  +'<meta charset="UTF-8">'
-  +'<meta name="description" content="An application to turn text messages to picture messages.">'
-  +'<meta name="keywords" content="pictures, instagram, feed, nlp">'
-  +'<meta property="fb:app_id" content="1046151882152788" />'
-  +'<meta property="og:type" content="article" content="app" />'
-  +'<meta property="og:url" content="https://imoji.herokuapp.com" />'
-  +'<meta property="og:title" content="Imoji" />'
-  +'<meta property="og:description" content="An application to turn text messages to picture messages." />'
-  +'<meta property="og:image" content="https://imoji.herokuapp.com/app/assets/images/icon_placeholder.jpg" />'
-  +'<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">'
-  +'<link rel="stylesheet" type="text/css" href="/app/styles/main.css">'
-  +'</head>'
-  +'<body>'
-  +'<div id="app">'
-  +'</div>'
-  +'<script src="./dist/client-bundle.js"></script>'
-  +'</body>'
-  +'</html>';
-  res.send(html);
+  fs.createReadStream('./app.html')
+  .pipe(res);
 }
 
 exports.getImagesForTags = (req, res) => {
