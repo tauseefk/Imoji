@@ -24,8 +24,8 @@ exports.home = (req, res) => {
     req.userAuth.access_token === undefined) {
 
     if(req.headers['user-agent'] == 'facebookexternalhit/' ||
-      req.headers['user-agent'] == 'Facebot') {
-        console.log(req.headers['user-agent']);
+      req.headers['user-agent'] == 'Facebot' ||
+      req.headers['user-agent'] == 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)') {
       res.redirect('/static');
     } else {
       console.log(req.headers['user-agent']);
