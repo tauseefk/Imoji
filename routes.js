@@ -27,8 +27,9 @@ exports.home = (req, res) => {
     req.headers['user-agent'] == 'facebookexternalhit/1.1' ||
     req.headers['user-agent'] == 'Facebot')) {
       res.redirect('/static');
+    } else {
+      res.redirect('/authorizeUser');
     }
-    res.redirect('/authorizeUser');
     return;
   } else {
     homeWithToken(req, res);
