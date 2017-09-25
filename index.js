@@ -30,6 +30,7 @@ app.use(bodyParser.json());
 app.use('/', express.static(__dirname));
 
 app.get('/', Routes.home);
+app.get('/webhook', Routes.getWebhook);
 app.get('/authorizeUser', Routes.authorizeUser);
 app.get('/auth', Routes.handleAuth);
 app.post('/getImagesForTags', Routes.getImagesForTags);
