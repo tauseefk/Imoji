@@ -83,7 +83,7 @@ exports.getStaticPage = (req, res) => {
   .pipe(res);
 };
 
-exports.getWebhook => (req, res) {
+exports.getWebhook = (req, res) => {
   if (req.query['hub.mode'] === 'subscribe' &&
       req.query['hub.verify_token'] === process.env.MESSENGER_VERIFY_TOKEN) {
     console.log("Validating webhook");
