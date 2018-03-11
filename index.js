@@ -1,15 +1,16 @@
 'use strict';
 
 const dotEnv = require('dotenv');
-dotEnv.config({ path: __dirname + '/.env'});
+dotEnv.config({ path: __dirname + '/.env' });
 const express = require('express'),
   app = express(),
   Routes = require('./routes.js'),
   cors = require('cors'),
   bodyParser = require('body-parser'),
-  sessions = require("client-sessions");
+  sessions = require('client-sessions'),
+  path = require('path');
 
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 5000));
 
 app.use(cors());
 app.use(sessions({
@@ -27,8 +28,7 @@ app.use(sessions({
 }));
 
 app.use(bodyParser.json());
-app.use('/', express.static(__dirname));
-
+app.use('/', express.static(path.join(__dirname, 'client', 'build')));
 app.get('/', Routes.home);
 app.get('/webhook', Routes.getWebhook);
 app.get('/authorizeUser', Routes.authorizeUser);
@@ -36,6 +36,6 @@ app.get('/auth', Routes.handleAuth);
 app.post('/getImagesForTags', Routes.getImagesForTags);
 app.get('/static', Routes.getStaticPage);
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function () {
   console.log(`Node app is running on port: ${app.get('port')}`);
 });
