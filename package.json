@@ -25,6 +25,7 @@
     "nodemon": "^1.17.1"
   },
   "scripts": {
+    "start": "node index.js",
     "client": "cd client && yarn start",
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
