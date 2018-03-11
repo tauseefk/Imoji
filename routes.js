@@ -12,8 +12,7 @@ const fs = require('fs'),
   redirectURI = process.env.APP_ADDRESS + process.env.REDIRECT_URI,
   path = require('path'),
   qs = require('querystring'),
-  pathToIndex = path.join(__dirname, 'client', 'build', 'index.html'),
-  pathToUnauthorized = path.join(__dirname, 'unauthorized.html');
+  pathToIndex = path.join(__dirname, 'client', 'build', 'index.html');
 
 const trace = curry((tag, x) => {
   console.log(tag, x);
