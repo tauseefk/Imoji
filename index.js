@@ -29,6 +29,7 @@ app.use(sessions({
 
 app.use(bodyParser.json());
 app.use('/', express.static(path.join(__dirname, 'client', 'build')));
+
 app.get('/', Routes.home);
 app.get('/webhook', Routes.getWebhook);
 app.get('/authorizeUser', Routes.authorizeUser);
