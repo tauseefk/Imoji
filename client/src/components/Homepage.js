@@ -35,21 +35,21 @@ export default class Homepage extends Component {
 
   fetchImages = (query) => {
     Axios.post('/getImagesForTags', query)
-    .then(res => {
-      if (res.status === 200 && res.data && Object.keys(res.data).length > 0) {
-        return res.data;
-      } else {
-        // returning object literal from arrow functions requires parenthesis,
-        // wow
-        return ({ name: "", avatar: "", images: [] })
-      }
-    })
-    .then(({ name, avatar, images }) => {
-      this.setState({
-        name: name,
-        avatar: avatar,
-        images: images
+      .then(res => {
+        if (res.status === 200 && res.data && Object.keys(res.data).length > 0) {
+          return res.data;
+        } else {
+          // returning object literal from arrow functions requires parenthesis,
+          // wow
+          return ({ name: "", avatar: "", images: [] })
+        }
+      })
+      .then(({ name, avatar, images }) => {
+        this.setState({
+          name: name,
+          avatar: avatar,
+          images: images
+        });
       });
-    });
   }
 };
