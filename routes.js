@@ -1,7 +1,6 @@
 'use strict';
 
-const React = require('react'),
-  fs = require('fs'),
+const fs = require('fs'),
   compose = require('ramda').compose,
   map = require('ramda').map,
   curry = require('ramda').curry,
@@ -10,7 +9,9 @@ const React = require('react'),
   fStems = require('./app/js/filteredStems'),
   axios = require('axios'),
   defString = 'people from california and florida',
-  redirectURI = process.env.APP_ADDRESS + process.env.REDIRECT_URI;
+  redirectURI = process.env.APP_ADDRESS + process.env.REDIRECT_URI,
+  path = require('path'),
+  pathToIndex = path.join(__dirname, 'client', 'build', 'index.html');
 
 const trace = curry((tag, x) => {
     console.log(tag, x);
@@ -28,7 +29,6 @@ exports.home = (req, res) => {
       req.headers['user-agent'] == 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)') {
       res.redirect('/static');
     } else {
-      console.log(req.headers['user-agent']);
       res.redirect('/authorizeUser');
     }
     return;
@@ -38,25 +38,30 @@ exports.home = (req, res) => {
 }
 
 var homeWithToken = (req, res) => {
-  fs.createReadStream('./app.html')
+  fs.createReadStream(pathToIndex)
     .pipe(res);
 }
 
 exports.getImagesForTags = (req, res) => {
-  const tagsWithToken = tags(req.userAuth.access_token),
-    picturesForTags = compose(pictures, tagsWithToken),
-    convertStemsToImages = compose(map(picturesForTags), fStems);
 
-  Promise.all(convertStemsToImages(req.body.queryString))
-  .then(images => images.filter((image) => image != null))
-  .then(images => {
-    res.send({
-      name: req.userAuth.user_name,
-      images: images || [],
-      avatar: req.userAuth.profile_picture
-    });
-  })
-  .catch(err => res.send(err));
+  if(!req.userAuth.access_token) {
+    res.status(500).send({ error: 'Invalid access token!' });
+  } else {
+    const tagsWithToken = tags(req.userAuth.access_token),
+      picturesForTags = compose(pictures, tagsWithToken),
+      convertStemsToImages = compose(map(picturesForTags), fStems);
+  
+    Promise.all(convertStemsToImages(req.body.queryString))
+    .then(images => images.filter((image) => image != null))
+    .then(images => {
+      res.send({
+        name: req.userAuth.user_name,
+        images: images || [],
+        avatar: req.userAuth.profile_picture
+      });
+    })
+    .catch(err => res.status(err.status).send(err.message));
+  }
 };
 
 exports.authorizeUser = (req, res) => {
@@ -68,7 +73,7 @@ exports.authorizeUser = (req, res) => {
 exports.handleAuth = (req, res) => {
   api.authorize_user(req.query.code, redirectURI, function(err, result) {
     if (err) {
-      console.error(err);
+      res.status(err.status).send(err.message);
     } else {
       req.userAuth.access_token = result.access_token;
       req.userAuth.user_name = result.user.username;
@@ -79,17 +84,15 @@ exports.handleAuth = (req, res) => {
 };
 
 exports.getStaticPage = (req, res) => {
-  fs.createReadStream('app.html')
+  fs.createReadStream(pathToIndex)
   .pipe(res);
 };
 
 exports.getWebhook = (req, res) => {
   if (req.query['hub.mode'] === 'subscribe' &&
       req.query['hub.verify_token'] === process.env.MESSENGER_VERIFY_TOKEN) {
-    console.log("Validating webhook");
     res.status(200).send(req.query['hub.challenge']);
   } else {
-    console.error("Failed validation. Make sure the validation tokens match.");
     res.sendStatus(403);
   }
 };

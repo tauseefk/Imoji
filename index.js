@@ -7,9 +7,10 @@ const express = require('express'),
   Routes = require('./routes.js'),
   cors = require('cors'),
   bodyParser = require('body-parser'),
-  sessions = require("client-sessions");
+  sessions = require('client-sessions'),
+  path = require('path');
 
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 5000));
 
 app.use(cors());
 app.use(sessions({
@@ -27,7 +28,7 @@ app.use(sessions({
 }));
 
 app.use(bodyParser.json());
-app.use('/', express.static(__dirname));
+app.use('/', express.static(path.join(__dirname, 'client', 'build')));
 
 app.get('/', Routes.home);
 app.get('/webhook', Routes.getWebhook);
