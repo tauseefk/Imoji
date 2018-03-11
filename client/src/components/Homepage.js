@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Post from './Post';
 import NavigationBar from './NavigationBar';
 import Axios from 'axios';
+import Authorization from './Authorization'
 
 export default class Homepage extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ export default class Homepage extends Component {
     this.state = {
       name: this.props.name,
       avatar: this.props.avatar,
-      images: this.props.images
+      images: this.props.images,
+      authorized: false
     };
 
     this.defaultQuery = {
@@ -25,6 +27,7 @@ export default class Homepage extends Component {
           avatar={this.state.avatar}
           onImageRequest={this.fetchImages} />
         <Post images={this.state.images} />
+        {!this.state.authorized ? <Authorization /> : null}
       </div>
     )
   }
@@ -35,21 +38,24 @@ export default class Homepage extends Component {
 
   fetchImages = (query) => {
     Axios.post('/getImagesForTags', query)
-      .then(res => {
-        if (res.status === 200 && res.data && Object.keys(res.data).length > 0) {
-          return res.data;
+      .then(response => {
+        let data = response.data;
+        if (response.status === 200 && data
+          && data.name && data.avatar && data.images) {
+          this.setState({
+            name: data.name,
+            avatar: data.avatar,
+            images: data.images,
+            authorized: true
+          });
         } else {
-          // returning object literal from arrow functions requires parenthesis,
-          // wow
-          return ({ name: "", avatar: "", images: [] })
+          this.setState({
+            name: this.state.name,
+            avatar: this.state.avatar,
+            images: this.state.images,
+            authorized: false
+          })
         }
-      })
-      .then(({ name, avatar, images }) => {
-        this.setState({
-          name: name,
-          avatar: avatar,
-          images: images
-        });
       });
   }
 };
