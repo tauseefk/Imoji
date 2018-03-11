@@ -4,20 +4,22 @@ const fs = require('fs'),
   compose = require('ramda').compose,
   map = require('ramda').map,
   curry = require('ramda').curry,
-  api = require('./app/js/instagram-node-helper'),
   pictures = require('./app/js/pictures'),
+  api = process.env.INSTAGRAM_API,
   fStems = require('./app/js/filteredStems'),
   axios = require('axios'),
   defString = 'people from california and florida',
   redirectURI = process.env.APP_ADDRESS + process.env.REDIRECT_URI,
   path = require('path'),
-  pathToIndex = path.join(__dirname, 'client', 'build', 'index.html');
+  qs = require('querystring'),
+  pathToIndex = path.join(__dirname, 'client', 'build', 'index.html'),
+  pathToUnauthorized = path.join(__dirname, 'unauthorized.html');
 
 const trace = curry((tag, x) => {
   console.log(tag, x);
   return x;
 }),
-  tags = curry((access_token, t) => `https://api.instagram.com/v1/tags/${t}/media/recent?access_token=${access_token}`);
+  tags = curry((access_token, t) => `${api}/v1/tags/${t}/media/recent?access_token=${access_token}`);
 
 exports.home = (req, res) => {
   if (!req.userAuth ||
@@ -42,10 +44,13 @@ var homeWithToken = (req, res) => {
     .pipe(res);
 }
 
+// XXX:TODO 
 exports.getImagesForTags = (req, res) => {
 
   if (!req.userAuth.access_token) {
-    res.status(500).send({ error: 'Invalid access token!' });
+    req.userAuth.reset();
+    fs.createReadStream(pathToIndex)
+      .pipe(res);
   } else {
     const tagsWithToken = tags(req.userAuth.access_token),
       picturesForTags = compose(pictures, tagsWithToken),
@@ -65,22 +70,32 @@ exports.getImagesForTags = (req, res) => {
 };
 
 exports.authorizeUser = (req, res) => {
-  res.redirect(api.get_authorization_url(redirectURI,
-    { scope: ['public_content'] }
-  ));
+  res.redirect(`${api}/oauth/authorize/?client_id=${process.env.INSTAGRAM_CLIENT_ID}&redirect_uri=${redirectURI}&response_type=code`);
 };
 
 exports.handleAuth = (req, res) => {
-  api.authorize_user(req.query.code, redirectURI, function (err, result) {
-    if (err) {
-      res.status(err.status).send(err.message);
-    } else {
-      req.userAuth.access_token = result.access_token;
-      req.userAuth.user_name = result.user.username;
-      req.userAuth.profile_picture = result.user.profile_picture;
+  var data = {
+    client_id: process.env.INSTAGRAM_CLIENT_ID,
+    client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
+    grant_type: 'authorization_code',
+    redirect_uri: redirectURI,
+    code: req.query.code
+  };
+  axios({
+    method: 'post',
+    url: `${api}/oauth/access_token`,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: qs.stringify(data)
+  })
+    .then(response => {
+      req.userAuth.access_token = response.data.access_token;
+      req.userAuth.user_name = response.data.user.full_name;
+      req.userAuth.profile_picture = response.data.user.profile_picture;
       res.redirect('/');
-    }
-  });
+    })
+    .catch(console.error.bind(this));
 };
 
 exports.getStaticPage = (req, res) => {
