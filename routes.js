@@ -39,7 +39,6 @@ exports.home = (req, res) => {
 }
 
 var homeWithToken = (req, res) => {
-  console.log("home!");
   fs.createReadStream(pathToIndex)
     .pipe(res);
 }
@@ -49,7 +48,6 @@ exports.getImagesForTags = (req, res) => {
 
   if (!req.userAuth.access_token) {
     req.userAuth.reset();
-    console.log("images!");
     fs.createReadStream(pathToIndex)
       .pipe(res);
   } else {
@@ -100,8 +98,6 @@ exports.handleAuth = (req, res) => {
 };
 
 exports.getStaticPage = (req, res) => {
-  console.log("static!");
-
   fs.createReadStream(pathToIndex)
     .pipe(res);
 };
