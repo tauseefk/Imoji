@@ -10,16 +10,16 @@ const map = require('ramda').map,
   filter = require('ramda').filter,
   compose = require('ramda').compose;
 
-const c_tokenize = function(tkr) {
-  return function(str) {
+const c_tokenize = function (tkr) {
+  return function (str) {
     return tkr.tokenize(str);
   }
 }
-const trace = function(x) {
+const trace = function (x) {
   console.log(x);
   return x;
 }
-const gtTwo = function(x) {
+const gtTwo = function (x) {
   return x.length > 2;
 }
 const wordTkr = c_tokenize(wordTokenizer),

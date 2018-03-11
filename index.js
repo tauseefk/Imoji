@@ -1,7 +1,7 @@
 'use strict';
 
 const dotEnv = require('dotenv');
-dotEnv.config({ path: __dirname + '/.env'});
+dotEnv.config({ path: __dirname + '/.env' });
 const express = require('express'),
   app = express(),
   Routes = require('./routes.js'),
@@ -37,6 +37,6 @@ app.get('/auth', Routes.handleAuth);
 app.post('/getImagesForTags', Routes.getImagesForTags);
 app.get('/static', Routes.getStaticPage);
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function () {
   console.log(`Node app is running on port: ${app.get('port')}`);
 });

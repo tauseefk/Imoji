@@ -7,15 +7,15 @@ const axios = require('axios'),
   prop = require('ramda').prop,
   filter = require('ramda').filter;
 
-const variadicCompose = (...fns) => fns.reduce((f,g) => (...args) => f(g(...args)));
+const variadicCompose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)));
 
 const Impure = {
   setData: curry((sel, data) => document.querySelector(sel).append(data)),
   get: curry((callback, url) => {
-      return axios.get(url)
+    return axios.get(url)
       .then(res => res.data.data)
       .then(data => {
-        if(data !== null && data.length > 0) {
+        if (data !== null && data.length > 0) {
           return callback(data);
         }
       })

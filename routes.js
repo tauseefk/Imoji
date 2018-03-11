@@ -14,17 +14,17 @@ const fs = require('fs'),
   pathToIndex = path.join(__dirname, 'client', 'build', 'index.html');
 
 const trace = curry((tag, x) => {
-    console.log(tag, x);
-    return x;
-  }),
+  console.log(tag, x);
+  return x;
+}),
   tags = curry((access_token, t) => `https://api.instagram.com/v1/tags/${t}/media/recent?access_token=${access_token}`);
 
 exports.home = (req, res) => {
-  if(!req.userAuth ||
+  if (!req.userAuth ||
     req.userAuth.access_token === null ||
     req.userAuth.access_token === undefined) {
 
-    if(req.headers['user-agent'] == 'facebookexternalhit/' ||
+    if (req.headers['user-agent'] == 'facebookexternalhit/' ||
       req.headers['user-agent'] == 'Facebot' ||
       req.headers['user-agent'] == 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)') {
       res.redirect('/static');
@@ -44,34 +44,34 @@ var homeWithToken = (req, res) => {
 
 exports.getImagesForTags = (req, res) => {
 
-  if(!req.userAuth.access_token) {
+  if (!req.userAuth.access_token) {
     res.status(500).send({ error: 'Invalid access token!' });
   } else {
     const tagsWithToken = tags(req.userAuth.access_token),
       picturesForTags = compose(pictures, tagsWithToken),
       convertStemsToImages = compose(map(picturesForTags), fStems);
-  
+
     Promise.all(convertStemsToImages(req.body.queryString))
-    .then(images => images.filter((image) => image != null))
-    .then(images => {
-      res.send({
-        name: req.userAuth.user_name,
-        images: images || [],
-        avatar: req.userAuth.profile_picture
-      });
-    })
-    .catch(err => res.status(err.status).send(err.message));
+      .then(images => images.filter((image) => image != null))
+      .then(images => {
+        res.send({
+          name: req.userAuth.user_name,
+          images: images || [],
+          avatar: req.userAuth.profile_picture
+        });
+      })
+      .catch(err => res.status(err.status).send(err.message));
   }
 };
 
 exports.authorizeUser = (req, res) => {
   res.redirect(api.get_authorization_url(redirectURI,
-    { scope: ['public_content']}
+    { scope: ['public_content'] }
   ));
 };
 
 exports.handleAuth = (req, res) => {
-  api.authorize_user(req.query.code, redirectURI, function(err, result) {
+  api.authorize_user(req.query.code, redirectURI, function (err, result) {
     if (err) {
       res.status(err.status).send(err.message);
     } else {
@@ -85,12 +85,12 @@ exports.handleAuth = (req, res) => {
 
 exports.getStaticPage = (req, res) => {
   fs.createReadStream(pathToIndex)
-  .pipe(res);
+    .pipe(res);
 };
 
 exports.getWebhook = (req, res) => {
   if (req.query['hub.mode'] === 'subscribe' &&
-      req.query['hub.verify_token'] === process.env.MESSENGER_VERIFY_TOKEN) {
+    req.query['hub.verify_token'] === process.env.MESSENGER_VERIFY_TOKEN) {
     res.status(200).send(req.query['hub.challenge']);
   } else {
     res.sendStatus(403);
