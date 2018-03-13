@@ -53,7 +53,7 @@ body {
 
 .layoutSingleColumn {
     margin: 0px auto;
-    width: 700px;
+    width: 960px;
 }
 
 .u-margin-header {
@@ -198,12 +198,6 @@ body {
 
 .postContent--image {
     width: 100%;
-    height: auto;
-    margin: 20px auto;
-}
-
-.postContent--image>img {
-  width: 100%;
 }
 
 .is-evolved {

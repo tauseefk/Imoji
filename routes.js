@@ -9,9 +9,9 @@ const fs = require('fs'),
   fStems = require('./app/js/filteredStems'),
   axios = require('axios'),
   defString = 'people from california and florida',
-  redirectURI = process.env.APP_ADDRESS + process.env.REDIRECT_URI,
   path = require('path'),
   qs = require('querystring'),
+  redirectURI = process.env.APP_ADDRESS + process.env.REDIRECT_URI,
   pathToIndex = path.join(__dirname, 'client', 'build', 'index.html');
 
 const trace = curry((tag, x) => {
@@ -43,13 +43,11 @@ var homeWithToken = (req, res) => {
     .pipe(res);
 }
 
-// XXX:TODO 
 exports.getImagesForTags = (req, res) => {
 
   if (!req.userAuth.access_token) {
     req.userAuth.reset();
-    fs.createReadStream(pathToIndex)
-      .pipe(res);
+    res.status(500).send(new Error("Unauthorized access"));
   } else {
     const tagsWithToken = tags(req.userAuth.access_token),
       picturesForTags = compose(pictures, tagsWithToken),
