@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Homepage name={""} images={[]} avatar={""} />
+        <Homepage name={""} images={[]} avatar={"http://via.placeholder.com/35x35"} />
       </div>
     );
   }
